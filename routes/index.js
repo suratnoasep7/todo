@@ -1,8 +1,5 @@
-const router = require('express').Router()
-const taskRouter = require('./v1/taskRouter.js')
-const userRouter = require('./v1/userRouter.js')
+var router = require('express').Router();
 
-router.use('/task', taskRouter)
-router.use('/user', userRouter)
+router.use('/api', require('./api'));
 
 module.exports = router;

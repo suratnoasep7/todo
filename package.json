@@ -1,39 +1,43 @@
 {
-  "name": "todoapp",
+  "name": "conduit-node",
   "version": "1.0.0",
-  "description": "To do app API with authentication",
-  "main": "server.js",
-  "engines": {
-    "node": "10.16.0",
-    "npm": "6.10.3"
-  },
+  "description": "conduit on node",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "NODE_ENV='development' nodemon server.js",
-    "test": "mocha test/* --exit",
-    "test-coverage": "nyc --reporter=html --reporter=text mocha -recursive ./test --timeout 10000 --exit"
+    "mongo:start": "docker run --name realworld-mongo -p 27017:27017 mongo & sleep 5",
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js",
+    "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
+    "stop": "lsof -ti :3000 | xargs kill",
+    "mongo:stop": "docker stop realworld-mongo && docker rm realworld-mongo"
   },
-  "author": "Muhammad Abdurrozaq",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gothinkster/productionready-node-api.git"
+  },
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
-    "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1",
-    "faker": "^4.1.0",
-    "jsonwebtoken": "^8.5.1",
-    "mocha": "^6.2.0",
-    "mongoose": "^5.6.10",
-    "mongoose-unique-validator": "^2.0.3",
-    "morgan": "^1.9.1",
-    "swagger": "^0.7.5",
-    "swagger-ui-express": "^4.0.7"
+    "body-parser": "1.15.0",
+    "cors": "2.7.1",
+    "ejs": "2.4.1",
+    "errorhandler": "1.4.3",
+    "express": "4.13.4",
+    "express-jwt": "3.3.0",
+    "express-session": "1.13.0",
+    "jsonwebtoken": "7.1.9",
+    "method-override": "2.3.5",
+    "methods": "1.1.2",
+    "mongoose": "4.4.10",
+    "mongoose-unique-validator": "1.0.2",
+    "morgan": "1.7.0",
+    "passport": "0.3.2",
+    "passport-local": "1.0.0",
+    "request": "2.69.0",
+    "slug": "0.9.1",
+    "underscore": "1.8.3"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "nodemon": "^1.19.1",
-    "nyc": "^14.1.1",
-    "should": "^13.2.3"
+    "newman": "^3.8.2",
+    "nodemon": "^1.11.0"
   }
 }
